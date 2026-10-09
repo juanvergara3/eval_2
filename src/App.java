@@ -1,5 +1,10 @@
+import controllers.MainController;
+import views.MainView;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+        MainView mainView = new MainView();
+        new MainController(mainView);
+        mainView.setVisible(true);
     }
 }
