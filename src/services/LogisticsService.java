@@ -33,8 +33,19 @@ public class LogisticsService {
     }
 
     public static String[][] getData() {
-        //TODO implementar
-        return new String[0][0];
+        String[][] data = new String[shipments.size()][Headers.values().length];
+
+        int column, row = 0;
+        for(Shipment shipment : shipments) {
+            column = 0;
+            for(String value : shipment.getData()) {
+                if(column < Headers.values().length)
+                    data[row][column] = value;
+                column++;
+            }
+            row++;
+        }
+        return data;
     }
 
     public static boolean addShipment(ShipmentType type, ShipmentData shipmentData) {

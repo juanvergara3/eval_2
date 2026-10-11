@@ -27,4 +27,6 @@ public abstract class Shipment {
     }
 
     public abstract double calculateCost();
+
+    public abstract String[] getData();
 }
