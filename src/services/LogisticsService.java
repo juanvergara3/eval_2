@@ -18,7 +18,7 @@ public class LogisticsService {
         String[] headers = new String[Headers.values().length];
 
         for(Headers header : Headers.values()) {
-            headers[header.ordinal()] = header.getHeader();
+            headers[header.ordinal()] = header.getLabel();
         }
         return headers;
     }

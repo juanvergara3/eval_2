@@ -14,7 +14,7 @@ public enum Headers {
         this.label = label;
     }
 
-    public String getHeader() {
+    public String getLabel() {
         return this.label;
     }
 }
