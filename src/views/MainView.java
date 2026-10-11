@@ -14,10 +14,12 @@ import javax.swing.JToolBar;
 import javax.swing.WindowConstants;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 
 public class MainView extends JFrame {
     // variables globales
-    JPanel pnlAddShipment = new JPanel();
+    JPanel pnlAddShipment;
+    JButton btnRemoveShipment,btnSaveShipment;
 
     public MainView() {
         setSize(600, 400);
@@ -32,7 +34,8 @@ public class MainView extends JFrame {
         btnAddShipment.setToolTipText("Agregar Envío");
         toolbar.add(btnAddShipment);
 
-        JButton btnRemoveShipment = new JButton();
+        // botón es público para que el controlador pueda agregarle un actionListener
+        btnRemoveShipment = new JButton();
         btnRemoveShipment.setIcon(new ImageIcon(getClass().getResource("/icons/RemoveShipment.png")));
         btnRemoveShipment.setToolTipText("Eliminar Envío");
         toolbar.add(btnRemoveShipment);
@@ -90,7 +93,8 @@ public class MainView extends JFrame {
         txtWeight.setBounds(120, 90, 100, 25);
         pnlAddShipment.add(txtWeight);
 
-        JButton btnSaveShipment = new JButton("Guardar");
+        // boton es público para que el controlador pueda agregarle un actionListener
+        btnSaveShipment = new JButton("Guardar");
         btnSaveShipment.setBounds(240, 90, 100, 25);
         pnlAddShipment.add(btnSaveShipment);
 
@@ -113,24 +117,27 @@ public class MainView extends JFrame {
             btnAddShipmentClicked();
         });
 
-        btnRemoveShipment.addActionListener(e -> {
-            // TODO implementar
-        });
-
-        btnSaveShipment.addActionListener(e -> {
-            // TODO implementar
-        });
-
         btnCancelShipment.addActionListener(e -> {
             btnCancelShipmentClicked();
         });
     }
 
+    // métodos privados exclusivos de interfaz gráfica
+    // es decir, solo se encargan de manipular la interfaz, no tienen nada de lógica
     private void btnAddShipmentClicked() {
         pnlAddShipment.setVisible(true);
     }
 
     private void btnCancelShipmentClicked() {
         pnlAddShipment.setVisible(false);
+    }
+
+    // setters para inyección de dependencias
+    public void setAddShipmentClick(ActionListener listener) {
+        btnSaveShipment.addActionListener(listener);
+    }
+
+    public void setRemoveShipmentClick(ActionListener listener) {
+        btnRemoveShipment.addActionListener(listener);
     }
 }
