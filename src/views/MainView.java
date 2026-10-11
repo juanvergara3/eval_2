@@ -132,6 +132,11 @@ public class MainView extends JFrame {
         pnlAddShipment.setVisible(false);
     }
 
+        // métodos públicos para que el controlador pueda manipular la vista
+    public void showShipments(String [] headers, String[][] data) {
+        //TODO implementar
+    }
+
     // setters para inyección de dependencias
     public void setAddShipmentClick(ActionListener listener) {
         btnSaveShipment.addActionListener(listener);
