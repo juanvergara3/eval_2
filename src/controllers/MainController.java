@@ -30,19 +30,35 @@ public class MainController {
 
     private void addShipment() {
         ShipmentType shipmentType;
-        String customer, code;
         Double weight, distance;
 
-        // Se hace un try-catch para capturar cualquier error de conversión de tipos de datos
+        // estas conversiones no pueden fallar, la validación de si están vacíos o no se hace en la vista primero y también en el servicio, junto con validaciones adicionaels
+        String customer = mainView.getCustomer();
+        String code= mainView.getCode();
+
+        // Se hacen un try-catch para capturar cualquier error de conversión de tipos de datos
+        // el controlador no se preocupa de que los datos sean correctos, es decir, no mira si el peso es no negativo, o si el código ya existe
+        // solo se encarga de pasarle al servicio datos en el formato correcto.
+
+        // este caso no debería fallar nunca, pero se pone por si las dudas, ya que el método fromLabel lanza una excepción si no encuentra el tipo de envío con el label que se le pase.
         try {
             shipmentType = ShipmentType.fromLabel(mainView.getShipmentType());
-            customer = mainView.getCustomer();
-            code = mainView.getCode();
-            weight = Double.parseDouble(mainView.getWeight());
-            distance = Double.parseDouble(mainView.getDistance());
-        } catch (Exception ex) {
-            mainView.showMessage("Error: Hubo un problema al convertir tipos de datos. Por favor, verifique que los datos ingresados sean correctos.");
+        } catch (Exception e) {
+            mainView.showMessage("Error interno: Hubo un problema al procesar la selección del tipo de envío.");
+            return;
+        }
 
+        try {
+            weight = Double.parseDouble(mainView.getWeight());
+        } catch (Exception e) {
+            mainView.showMessage("Error: Revisar que el peso ingresado sea un número.");
+            return;
+        }
+
+        try {
+            distance = Double.parseDouble(mainView.getDistance());
+        } catch (Exception e) {
+            mainView.showMessage("Error: Revisar que la distancia ingresada sea un número.");
             return;
         }
         

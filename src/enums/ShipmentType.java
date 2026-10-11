@@ -22,6 +22,6 @@ public enum ShipmentType {
             }
         }
 
-        return null;
+        throw new IllegalArgumentException("No ShipmentType with label " + label);
     }
 }
