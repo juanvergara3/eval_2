@@ -20,6 +20,8 @@ public class MainView extends JFrame {
     // variables globales
     JPanel pnlAddShipment;
     JButton btnRemoveShipment,btnSaveShipment;
+    
+    JComboBox<String> cmbShipmentType;
 
     public MainView() {
         setSize(600, 400);
@@ -63,7 +65,7 @@ public class MainView extends JFrame {
         lblShipmentType.setBounds(240, 10, 100, 25);
         pnlAddShipment.add(lblShipmentType);
 
-        JComboBox<String> cmbShipmentType = new JComboBox<>(new String[] {"Aéreo", "Marítimo", "Terrestre"}); // TODO esto es temporal
+        cmbShipmentType = new JComboBox<String>();
         cmbShipmentType.setBounds(350, 10, 100, 25);
         pnlAddShipment.add(cmbShipmentType);
 
@@ -132,7 +134,13 @@ public class MainView extends JFrame {
         pnlAddShipment.setVisible(false);
     }
 
-        // métodos públicos para que el controlador pueda manipular la vista
+    // métodos públicos para que el controlador pueda manipular la vista
+    public void populateShipmentTypeComboBox(String[] shipmentTypes) {
+        for (String type : shipmentTypes) {
+            cmbShipmentType.addItem(type);
+        }
+    }
+
     public void showShipments(String [] headers, String[][] data) {
         //TODO implementar
     }

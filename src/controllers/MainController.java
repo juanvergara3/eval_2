@@ -1,6 +1,7 @@
 package controllers;
 
 import views.MainView;
+import enums.ShipmentType;
 import services.LogisticsService;
 
 public class MainController {
@@ -14,7 +15,12 @@ public class MainController {
         this.mainView.setAddShipmentClick(event -> addShipment());
         this.mainView.setRemoveShipmentClick(event -> removeShipment());
 
-       showShipments();
+        populateShipmentTypes();
+        showShipments();
+    }
+
+    public void populateShipmentTypes() {
+        mainView.populateShipmentTypeComboBox(LogisticsService.getShipmentTypes());
     }
 
     public void showShipments() {
