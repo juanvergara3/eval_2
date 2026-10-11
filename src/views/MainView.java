@@ -6,12 +6,15 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
@@ -20,7 +23,10 @@ public class MainView extends JFrame {
     // variables globales
     JPanel pnlAddShipment;
     JButton btnRemoveShipment,btnSaveShipment;
-    
+    JTable tblShipments;
+
+    // campos de la vista que el controlador necesita
+    JTextField txtShipmentNumber, txtCustomerName, txtDistance, txtWeight;
     JComboBox<String> cmbShipmentType;
 
     public MainView() {
@@ -57,7 +63,7 @@ public class MainView extends JFrame {
         lblShipmentNumber.setBounds(10, 10, 100, 25);
         pnlAddShipment.add(lblShipmentNumber);
 
-        JTextField txtShipmentNumber = new JTextField();
+        txtShipmentNumber = new JTextField();
         txtShipmentNumber.setBounds(120, 10, 100, 25);
         pnlAddShipment.add(txtShipmentNumber);
         
@@ -74,7 +80,7 @@ public class MainView extends JFrame {
         lblCustomerName.setBounds(10, 50, 100, 25);
         pnlAddShipment.add(lblCustomerName);
 
-        JTextField txtCustomerName = new JTextField();
+        txtCustomerName = new JTextField();
         txtCustomerName.setBounds(120, 50, 100, 25);
         pnlAddShipment.add(txtCustomerName);
 
@@ -82,7 +88,7 @@ public class MainView extends JFrame {
         lblDistance.setBounds(240, 50, 100, 25);
         pnlAddShipment.add(lblDistance);
 
-        JTextField txtDistance = new JTextField();
+        txtDistance = new JTextField();
         txtDistance.setBounds(350, 50, 100, 25);
         pnlAddShipment.add(txtDistance);
 
@@ -91,7 +97,7 @@ public class MainView extends JFrame {
         lblWeight.setBounds(10, 90, 100, 25);
         pnlAddShipment.add(lblWeight);
 
-        JTextField txtWeight = new JTextField();
+        txtWeight = new JTextField();
         txtWeight.setBounds(120, 90, 100, 25);
         pnlAddShipment.add(txtWeight);
 
@@ -106,7 +112,8 @@ public class MainView extends JFrame {
 
         // 2. panel de vista de envíos
         // siempre visible, muestra la lista de envíos agregados
-        JTable tblShipments = new JTable();
+        // se hace global para que el controlador pueda manipularlo
+        tblShipments = new JTable();
         JScrollPane spShipmentList = new JScrollPane(tblShipments);
 
         // añadir páneles al panel principal
@@ -131,7 +138,8 @@ public class MainView extends JFrame {
     }
 
     private void btnCancelShipmentClicked() {
-        pnlAddShipment.setVisible(false);
+        clearShipmentFields();
+        hideShipmentEdit();
     }
 
     // métodos públicos para que el controlador pueda manipular la vista
@@ -142,7 +150,24 @@ public class MainView extends JFrame {
     }
 
     public void showShipments(String [] headers, String[][] data) {
-        //TODO implementar
+        DefaultTableModel model = new DefaultTableModel(data, headers);
+        tblShipments.setModel(model);
+    }
+
+    public void showMessage(String message) {
+        JOptionPane.showMessageDialog(this, message);
+    }
+
+    public void clearShipmentFields() {
+        txtShipmentNumber.setText("");
+        txtCustomerName.setText("");
+        txtDistance.setText("");
+        txtWeight.setText("");
+        cmbShipmentType.setSelectedIndex(0);
+    }
+
+    public void hideShipmentEdit() {
+        pnlAddShipment.setVisible(false);
     }
 
     // setters para inyección de dependencias
@@ -152,5 +177,26 @@ public class MainView extends JFrame {
 
     public void setRemoveShipmentClick(ActionListener listener) {
         btnRemoveShipment.addActionListener(listener);
+    }
+
+    // getter públicos para que el controlador pueda obtener los datos de la vista
+    public String getCustomer() {
+        return txtCustomerName.getText();
+    }
+
+    public String getCode() {
+        return txtShipmentNumber.getText();
+    }
+
+    public String getWeight() {
+        return txtWeight.getText();
+    }
+
+    public String getDistance() {
+        return txtDistance.getText();
+    }
+
+    public String getShipmentType() {
+        return (String) cmbShipmentType.getSelectedItem();
     }
 }

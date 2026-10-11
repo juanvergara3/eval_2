@@ -37,9 +37,10 @@ public class LogisticsService {
         return new String[0][0];
     }
 
-    public static Shipment addShipment(ShipmentData shipmentData) {
+    public static boolean addShipment(ShipmentType type, ShipmentData shipmentData) {
         //TODO implementar
-        return null;
+        // Aquí se van a poner las validaciones de datos del estilo de "el peso no puede ser negativo", etc.
+        return false;
     }
 
     public static boolean removeShipment(int index) {
