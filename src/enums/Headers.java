@@ -2,7 +2,7 @@ package enums;
 
 public enum Headers {
     TIPO("Tipo"),
-    CODIGO("CÓdigo"),
+    CODIGO("Código"),
     CLIENTE("Cliente"),
     PESO("Peso (kg)"),
     DISTANCIA("Distancia (km)"),
