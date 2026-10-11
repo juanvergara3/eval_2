@@ -8,6 +8,7 @@ public class LandShipment extends Shipment {
         super(shipmentData);
     }
 
+    @Override
     public double calculateCost() {
         return 1500 + (super.getWeight() * 2000);
     }

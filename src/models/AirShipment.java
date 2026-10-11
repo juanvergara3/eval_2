@@ -8,6 +8,7 @@ public class AirShipment extends Shipment {
         super(shipmentData);
     }
 
+    @Override
     public double calculateCost() {
         return 5000 + (super.getWeight() * 4000);
     }
