@@ -18,8 +18,8 @@ public class SeaShipment extends Shipment {
     public String[] getData() {
         return new String[]{
                 ShipmentType.SEA.getLabel(),
-                super.getCustomer(),
                 super.getCode(),
+                super.getCustomer(),
                 String.valueOf(super.getWeight()),
                 String.valueOf(super.getDistance()),
                 String.valueOf(calculateCost())

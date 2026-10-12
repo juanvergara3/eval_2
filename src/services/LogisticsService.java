@@ -48,14 +48,48 @@ public class LogisticsService {
         return data;
     }
 
-    public static boolean addShipment(ShipmentType type, ShipmentData shipmentData) {
-        //TODO implementar
-        // Aquí se van a poner las validaciones de datos del estilo de "el peso no puede ser negativo", etc.
-        return false;
+    // Métodos públicos para agregar y eliminar envíos
+    public static String addShipment(ShipmentType type, ShipmentData shipmentData) {
+        String errorMessage = validateShipmentData(shipmentData);
+
+        if (errorMessage != null)
+            return errorMessage;
+        
+        Shipment shipment = null;
+        shipment = ShipmentFactory.getFactory(type).createShipment(shipmentData);
+        if (shipment != null) {
+            shipments.add(shipment);
+            return null;
+        }
+
+        // caso de failsafe por si falla algo en la fábrica.
+        return "Error: No se pudo crear el envío.";
     }
 
     public static boolean removeShipment(int index) {
         //TODO implementar
         return false;
+    }
+
+    // métodos helper privados
+    private static String validateShipmentData(ShipmentData shipmentData) {
+        if (shipmentData.customer() == null || shipmentData.customer().isEmpty()) {
+            return "Error: El nombre del cliente no puede estar vacío.";
+        }
+        if (shipmentData.code() == null || shipmentData.code().isEmpty()) {
+            return "Error: El código del envío no puede estar vacío.";
+        }
+        if (shipmentData.weight() < 0) {
+            return "Error: El peso del envío no puede ser negativo.";
+        }
+        if (shipmentData.distance() < 0) {
+            return "Error: La distancia del envío no puede ser negativa.";
+        }
+        for (Shipment shipment : shipments) {
+            if (shipment.getCode().equals(shipmentData.code())) {
+                return "Error: Ya existe un envío con el mismo código.";
+            }
+        }
+        return null;
     }
 }

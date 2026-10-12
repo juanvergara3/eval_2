@@ -62,14 +62,14 @@ public class MainController {
             return;
         }
         
-        boolean shipmentAdded = LogisticsService.addShipment(shipmentType, new ShipmentData(customer, code, weight, distance));
+        String shipmentAddStatus = LogisticsService.addShipment(shipmentType, new ShipmentData(customer, code, weight, distance));
 
-        if (shipmentAdded) {
+        if (shipmentAddStatus == null) {
             showShipments();
             mainView.clearShipmentFields();
             mainView.hideShipmentEdit();
         } else {
-            mainView.showMessage("El envío no pudo ser agregado");
+            mainView.showMessage(shipmentAddStatus);
         }
     }
 

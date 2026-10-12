@@ -18,8 +18,8 @@ public class AirShipment extends Shipment {
     public String[] getData() {
         return new String[]{
                 ShipmentType.AIR.getLabel(),
-                super.getCustomer(),
                 super.getCode(),
+                super.getCustomer(),
                 String.valueOf(super.getWeight()),
                 String.valueOf(super.getDistance()),
                 String.valueOf(calculateCost())

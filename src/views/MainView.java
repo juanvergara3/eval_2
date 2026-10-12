@@ -26,7 +26,7 @@ public class MainView extends JFrame {
     JTable tblShipments;
 
     // campos de la vista que el controlador necesita
-    JTextField txtShipmentNumber, txtCustomerName, txtDistance, txtWeight;
+    JTextField txtShipmentCode, txtCustomerName, txtDistance, txtWeight;
     JComboBox<String> cmbShipmentType;
 
     public MainView() {
@@ -59,13 +59,13 @@ public class MainView extends JFrame {
         pnlAddShipment.setVisible(false);
 
         // campos de la fila 1
-        JLabel lblShipmentNumber = new JLabel("Número");
+        JLabel lblShipmentNumber = new JLabel("Código");
         lblShipmentNumber.setBounds(10, 10, 100, 25);
         pnlAddShipment.add(lblShipmentNumber);
 
-        txtShipmentNumber = new JTextField();
-        txtShipmentNumber.setBounds(120, 10, 100, 25);
-        pnlAddShipment.add(txtShipmentNumber);
+        txtShipmentCode = new JTextField();
+        txtShipmentCode.setBounds(120, 10, 100, 25);
+        pnlAddShipment.add(txtShipmentCode);
         
         JLabel lblShipmentType = new JLabel("Tipo");
         lblShipmentType.setBounds(240, 10, 100, 25);
@@ -159,7 +159,7 @@ public class MainView extends JFrame {
     }
 
     public void clearShipmentFields() {
-        txtShipmentNumber.setText("");
+        txtShipmentCode.setText("");
         txtCustomerName.setText("");
         txtDistance.setText("");
         txtWeight.setText("");
@@ -185,7 +185,7 @@ public class MainView extends JFrame {
     }
 
     public String getCode() {
-        return txtShipmentNumber.getText();
+        return txtShipmentCode.getText();
     }
 
     public String getWeight() {
