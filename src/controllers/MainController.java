@@ -74,6 +74,15 @@ public class MainController {
     }
 
     private void removeShipment() {
-        //TODO implementar
+        int selectedIndex = mainView.getSelectedShipmentIndex();
+
+        if (selectedIndex >= 0) {
+            if (mainView.confirm("¿Está seguro de retirar el envío?")) {
+                LogisticsService.removeShipment(selectedIndex);
+                showShipments();
+            }
+        } else {
+            mainView.showMessage("Debe seleccionar un envío.");
+        }
     }
 }

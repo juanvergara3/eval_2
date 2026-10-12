@@ -121,7 +121,7 @@ public class MainView extends JFrame {
         pnlMain.add(spShipmentList);
         add(pnlMain, BorderLayout.CENTER);
 
-        // ---------------EVENT LISTENERS-----------------
+        // Escuchadores de eventos de interfaz (nada que ver con el controlador, solo manipula la interfaz)
         btnAddShipment.addActionListener(e -> {
             btnAddShipmentClicked();
         });
@@ -170,6 +170,13 @@ public class MainView extends JFrame {
         pnlAddShipment.setVisible(false);
     }
 
+    public boolean confirm(String message) {
+        if (JOptionPane.showConfirmDialog(this, message, "Confirmar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            return true;
+        }
+        return false;
+    }
+
     // setters para inyección de dependencias
     public void setAddShipmentClick(ActionListener listener) {
         btnSaveShipment.addActionListener(listener);
@@ -198,5 +205,9 @@ public class MainView extends JFrame {
 
     public String getShipmentType() {
         return (String) cmbShipmentType.getSelectedItem();
+    }
+
+    public int getSelectedShipmentIndex() {
+        return tblShipments.getSelectedRow();
     }
 }

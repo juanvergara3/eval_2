@@ -67,7 +67,10 @@ public class LogisticsService {
     }
 
     public static boolean removeShipment(int index) {
-        //TODO implementar
+        if (index >= 0 && index < shipments.size()) {
+            shipments.remove(index);
+            return true;
+        }
         return false;
     }
 
