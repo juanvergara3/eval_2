@@ -75,14 +75,18 @@ public class MainController {
 
     private void removeShipment() {
         int selectedIndex = mainView.getSelectedShipmentIndex();
+        String code = null;
 
-        if (selectedIndex >= 0) {
-            if (mainView.confirm("¿Está seguro de retirar el envío?")) {
-                LogisticsService.removeShipment(selectedIndex);
+        // -1 es el valor por defecto que Java el da al índice si no hay nada seleccionado.
+        if(selectedIndex == -1)
+            code = mainView.askForInput("Ingrese el código del envío a retirar:");
+
+        if (mainView.confirm("¿Está seguro de retirar el envío?")) {
+            String removeStatus = code == null ? LogisticsService.removeShipmentByIndex(selectedIndex) : LogisticsService.removeShipmentByCode(code.strip());
+            if (removeStatus == null)
                 showShipments();
-            }
-        } else {
-            mainView.showMessage("Debe seleccionar un envío.");
+            else 
+                mainView.showMessage(removeStatus);
         }
     }
 }

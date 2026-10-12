@@ -66,12 +66,22 @@ public class LogisticsService {
         return "Error: No se pudo crear el envío.";
     }
 
-    public static boolean removeShipment(int index) {
+    public static String removeShipmentByIndex(int index) {
         if (index >= 0 && index < shipments.size()) {
             shipments.remove(index);
-            return true;
+            return null;
         }
-        return false;
+        return "Error: No se pudo eliminar el envío.";
+    }
+
+    public static String removeShipmentByCode(String code) {
+        for (int i = 0; i < shipments.size(); i++) {
+            if (shipments.get(i).getCode().equals(code)) {
+                shipments.remove(i);
+                return null;
+            }
+        }
+        return "Error: No se encontró un envío con el código proporcionado.";
     }
 
     // métodos helper privados

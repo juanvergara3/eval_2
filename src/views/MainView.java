@@ -177,6 +177,10 @@ public class MainView extends JFrame {
         return false;
     }
 
+    public String askForInput(String message) {
+        return JOptionPane.showInputDialog(this, message);
+    }
+
     // setters para inyección de dependencias
     public void setAddShipmentClick(ActionListener listener) {
         btnSaveShipment.addActionListener(listener);
