@@ -11,10 +11,14 @@ import factories.ShipmentFactory;
 
 public class LogisticsService {
 
-    private static List<Shipment> shipments = new ArrayList<Shipment>();
+    private final List<Shipment> shipments;
+
+    public LogisticsService() {
+        this.shipments = new ArrayList<Shipment>();
+    }
 
     // getters públicos para uso con el controlador
-    public static String[] getShipmentTypes() {
+    public String[] getShipmentTypes() {
         String[] shipmentTypes = new String[ShipmentType.values().length];
 
         for(ShipmentType type : ShipmentType.values()) {
@@ -23,7 +27,7 @@ public class LogisticsService {
         return shipmentTypes;
     }
 
-    public static String[] getHeaders() {
+    public String[] getHeaders() {
         String[] headers = new String[Headers.values().length];
 
         for(Headers header : Headers.values()) {
@@ -32,7 +36,7 @@ public class LogisticsService {
         return headers;
     }
 
-    public static String[][] getData() {
+    public String[][] getData() {
         String[][] data = new String[shipments.size()][Headers.values().length];
 
         int column, row = 0;
@@ -49,7 +53,7 @@ public class LogisticsService {
     }
 
     // Métodos públicos para agregar y eliminar envíos
-    public static String addShipment(ShipmentType type, ShipmentData shipmentData) {
+    public String addShipment(ShipmentType type, ShipmentData shipmentData) {
         String errorMessage = validateShipmentData(shipmentData);
 
         if (errorMessage != null)
@@ -66,7 +70,7 @@ public class LogisticsService {
         return "Error: No se pudo crear el envío.";
     }
 
-    public static String removeShipmentByIndex(int index) {
+    public String removeShipmentByIndex(int index) {
         if (index >= 0 && index < shipments.size()) {
             shipments.remove(index);
             return null;
@@ -74,7 +78,7 @@ public class LogisticsService {
         return "Error: No se pudo eliminar el envío.";
     }
 
-    public static String removeShipmentByCode(String code) {
+    public String removeShipmentByCode(String code) {
         for (int i = 0; i < shipments.size(); i++) {
             if (shipments.get(i).getCode().equals(code)) {
                 shipments.remove(i);
@@ -85,7 +89,7 @@ public class LogisticsService {
     }
 
     // métodos helper privados
-    private static String validateShipmentData(ShipmentData shipmentData) {
+    private String validateShipmentData(ShipmentData shipmentData) {
         if (shipmentData.customer() == null || shipmentData.customer().isEmpty()) {
             return "Error: El nombre del cliente no puede estar vacío.";
         }

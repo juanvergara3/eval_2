@@ -8,9 +8,11 @@ import services.LogisticsService;
 public class MainController {
 
     private MainView mainView;
+    private LogisticsService logisticsService;
 
-    public MainController(MainView mainView) {
+    public MainController(MainView mainView, LogisticsService logisticsService) {
         this.mainView = mainView;
+        this.logisticsService = logisticsService;
 
         // se intectan métodos para agregar y quitar envíos sin que la vista tenga información de la implementación del controlador
         this.mainView.setAddShipmentClick(event -> addShipment());
@@ -21,11 +23,11 @@ public class MainController {
     }
 
     public void populateShipmentTypes() {
-        mainView.populateShipmentTypeComboBox(LogisticsService.getShipmentTypes());
+        mainView.populateShipmentTypeComboBox(logisticsService.getShipmentTypes());
     }
 
     public void showShipments() {
-        mainView.showShipments(LogisticsService.getHeaders(), LogisticsService.getData());
+        mainView.showShipments(logisticsService.getHeaders(), logisticsService.getData());
     }
 
     private void addShipment() {
@@ -62,7 +64,7 @@ public class MainController {
             return;
         }
         
-        String shipmentAddStatus = LogisticsService.addShipment(shipmentType, new ShipmentData(customer, code, weight, distance));
+        String shipmentAddStatus = logisticsService.addShipment(shipmentType, new ShipmentData(customer, code, weight, distance));
 
         if (shipmentAddStatus == null) {
             showShipments();
@@ -82,7 +84,7 @@ public class MainController {
             code = mainView.askForInput("Ingrese el código del envío a retirar:");
 
         if (mainView.confirm("¿Está seguro de retirar el envío?")) {
-            String removeStatus = code == null ? LogisticsService.removeShipmentByIndex(selectedIndex) : LogisticsService.removeShipmentByCode(code.strip());
+            String removeStatus = code == null ? logisticsService.removeShipmentByIndex(selectedIndex) : logisticsService.removeShipmentByCode(code.strip());
             if (removeStatus == null)
                 showShipments();
             else 
