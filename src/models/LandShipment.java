@@ -17,7 +17,7 @@ public class LandShipment extends Shipment {
     @Override
     public String[] getData() {
         return new String[]{
-                ShipmentType.AIR.getLabel(),
+                ShipmentType.LAND.getLabel(),
                 super.getCode(),
                 super.getCustomer(),
                 String.valueOf(super.getWeight()),
