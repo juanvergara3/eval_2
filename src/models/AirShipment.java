@@ -15,14 +15,8 @@ public class AirShipment extends Shipment {
     }
 
     @Override
-    public String[] getData() {
-        return new String[]{
-                ShipmentType.AIR.getLabel(),
-                super.getCode(),
-                super.getCustomer(),
-                String.valueOf(super.getWeight()),
-                String.valueOf(super.getDistance()),
-                String.valueOf(calculateCost())
-        };
+    public ShipmentType getType() {
+        return ShipmentType.AIR;
     }
+    
 }

@@ -1,5 +1,6 @@
 package models;
 
+import enums.ShipmentType;
 import records.ShipmentData;
 
 public abstract class Shipment {
@@ -10,6 +11,7 @@ public abstract class Shipment {
         this.shipmentData = shipmentData;
     }
 
+    // métodos comunes a todas las clases hijas
     public String getCustomer() {
         return shipmentData.customer();
     }
@@ -26,7 +28,19 @@ public abstract class Shipment {
         return shipmentData.distance();
     }
 
+    public String[] getData() {
+        return new String[]{
+                getType().getLabel(),
+                getCode(),
+                getCustomer(),
+                String.valueOf(getWeight()),
+                String.valueOf(getDistance()),
+                String.valueOf(calculateCost())
+        };
+    }
+
+    // métodos abstractos que deben ser implementados por las clases hijas
     public abstract double calculateCost();
 
-    public abstract String[] getData();
+    public abstract ShipmentType getType();
 }
