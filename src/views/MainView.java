@@ -21,13 +21,13 @@ import java.awt.event.ActionListener;
 
 public class MainView extends JFrame {
     // variables globales
-    JPanel pnlAddShipment;
-    JButton btnRemoveShipment,btnSaveShipment;
-    JTable tblShipments;
+    private JPanel pnlAddShipment;
+    private JButton btnRemoveShipment,btnSaveShipment;
+    private JTable tblShipments;
 
     // campos de la vista que el controlador necesita
-    JTextField txtShipmentCode, txtCustomerName, txtDistance, txtWeight;
-    JComboBox<String> cmbShipmentType;
+    private JTextField txtShipmentCode, txtCustomerName, txtDistance, txtWeight;
+    private JComboBox<String> cmbShipmentType;
 
     public MainView() {
         setSize(600, 400);
