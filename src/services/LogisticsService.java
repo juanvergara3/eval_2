@@ -37,19 +37,19 @@ public class LogisticsService {
     }
 
     public String[][] getData() {
-        String[][] data = new String[shipments.size()][Headers.values().length];
+        String[][] shipmentData = new String[shipments.size()][Headers.values().length];
 
         int column, row = 0;
         for(Shipment shipment : shipments) {
             column = 0;
             for(String value : shipment.getData()) {
                 if(column < Headers.values().length)
-                    data[row][column] = value;
+                    shipmentData[row][column] = value;
                 column++;
             }
             row++;
         }
-        return data;
+        return shipmentData;
     }
 
     // Métodos públicos para agregar y eliminar envíos

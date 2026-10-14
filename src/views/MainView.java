@@ -149,8 +149,8 @@ public class MainView extends JFrame {
         }
     }
 
-    public void showShipments(String [] headers, String[][] data) {
-        DefaultTableModel model = new DefaultTableModel(data, headers);
+    public void showShipments(String [] headers, String[][] shipmentTableData) {
+        DefaultTableModel model = new DefaultTableModel(shipmentTableData, headers);
         tblShipments.setModel(model);
     }
 
