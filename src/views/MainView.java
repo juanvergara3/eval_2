@@ -15,11 +15,13 @@ import javax.swing.JToolBar;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
+import interfaces.IMainView;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
-public class MainView extends JFrame {
+public class MainView extends JFrame implements IMainView {
     // variables globales
     private JPanel pnlAddShipment;
     private JButton btnRemoveShipment,btnSaveShipment;
@@ -138,27 +140,10 @@ public class MainView extends JFrame {
     }
 
     private void btnCancelShipmentClicked() {
-        clearShipmentFields();
         hideShipmentEdit();
     }
 
-    // métodos públicos para que el controlador pueda manipular la vista
-    public void populateShipmentTypeComboBox(String[] shipmentTypes) {
-        for (String type : shipmentTypes) {
-            cmbShipmentType.addItem(type);
-        }
-    }
-
-    public void showShipments(String [] headers, String[][] shipmentTableData) {
-        DefaultTableModel model = new DefaultTableModel(shipmentTableData, headers);
-        tblShipments.setModel(model);
-    }
-
-    public void showMessage(String message) {
-        JOptionPane.showMessageDialog(this, message);
-    }
-
-    public void clearShipmentFields() {
+    private void clearShipmentFields() {
         txtShipmentCode.setText("");
         txtCustomerName.setText("");
         txtDistance.setText("");
@@ -166,10 +151,32 @@ public class MainView extends JFrame {
         cmbShipmentType.setSelectedIndex(0);
     }
 
+    // métodos públicos para que el controlador pueda manipular la vista
+    @Override
+    public void populateShipmentTypeComboBox(String[] shipmentTypes) {
+        for (String type : shipmentTypes) {
+            cmbShipmentType.addItem(type);
+        }
+    }
+
+    @Override
+    public void showShipments(String [] headers, String[][] shipmentTableData) {
+        DefaultTableModel model = new DefaultTableModel(shipmentTableData, headers);
+        tblShipments.setModel(model);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        JOptionPane.showMessageDialog(this, message);
+    }
+
+    @Override
     public void hideShipmentEdit() {
+        clearShipmentFields();
         pnlAddShipment.setVisible(false);
     }
 
+    @Override
     public boolean confirm(String message) {
         if (JOptionPane.showConfirmDialog(this, message, "Confirmar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             return true;
@@ -177,40 +184,49 @@ public class MainView extends JFrame {
         return false;
     }
 
+    @Override
     public String askForInput(String message) {
         return JOptionPane.showInputDialog(this, message);
     }
 
     // setters para inyección de dependencias
+    @Override
     public void setAddShipmentClick(ActionListener listener) {
         btnSaveShipment.addActionListener(listener);
     }
 
+    @Override
     public void setRemoveShipmentClick(ActionListener listener) {
         btnRemoveShipment.addActionListener(listener);
     }
 
     // getter públicos para que el controlador pueda obtener los datos de la vista
+    @Override
     public String getCustomer() {
         return txtCustomerName.getText();
     }
 
+    @Override
     public String getCode() {
         return txtShipmentCode.getText();
     }
 
+    @Override
     public String getWeight() {
         return txtWeight.getText();
     }
 
+    @Override
     public String getDistance() {
         return txtDistance.getText();
     }
 
+    @Override
     public String getShipmentType() {
         return (String) cmbShipmentType.getSelectedItem();
     }
 
+    @Override
     public int getSelectedShipmentIndex() {
         return tblShipments.getSelectedRow();
     }

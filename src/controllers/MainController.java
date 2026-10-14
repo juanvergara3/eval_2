@@ -1,16 +1,16 @@
 package controllers;
 
-import views.MainView;
 import enums.ShipmentType;
+import interfaces.ILogisticsService;
+import interfaces.IMainView;
 import records.ShipmentData;
-import services.LogisticsService;
 
 public class MainController {
 
-    private MainView mainView;
-    private LogisticsService logisticsService;
+    private IMainView mainView;
+    private ILogisticsService logisticsService;
 
-    public MainController(MainView mainView, LogisticsService logisticsService) {
+    public MainController(IMainView mainView, ILogisticsService logisticsService) {
         this.mainView = mainView;
         this.logisticsService = logisticsService;
 
@@ -27,7 +27,7 @@ public class MainController {
     }
 
     public void showShipments() {
-        mainView.showShipments(logisticsService.getHeaders(), logisticsService.getData());
+        mainView.showShipments(logisticsService.getHeaders(), logisticsService.getShipmentsTableDate());
     }
 
     private void addShipment() {
@@ -68,7 +68,6 @@ public class MainController {
 
         if (shipmentAddStatus == null) {
             showShipments();
-            mainView.clearShipmentFields();
             mainView.hideShipmentEdit();
         } else {
             mainView.showMessage(shipmentAddStatus);

@@ -8,8 +8,9 @@ import enums.ShipmentType;
 import models.*;
 import records.ShipmentData;
 import factories.ShipmentFactory;
+import interfaces.ILogisticsService;
 
-public class LogisticsService {
+public class LogisticsService implements ILogisticsService {
 
     private final List<Shipment> shipments;
 
@@ -18,6 +19,7 @@ public class LogisticsService {
     }
 
     // getters públicos para uso con el controlador
+    @Override
     public String[] getShipmentTypes() {
         String[] shipmentTypes = new String[ShipmentType.values().length];
 
@@ -27,6 +29,7 @@ public class LogisticsService {
         return shipmentTypes;
     }
 
+    @Override
     public String[] getHeaders() {
         String[] headers = new String[Headers.values().length];
 
@@ -36,7 +39,8 @@ public class LogisticsService {
         return headers;
     }
 
-    public String[][] getData() {
+    @Override
+    public String[][] getShipmentsTableDate() {
         String[][] shipmentData = new String[shipments.size()][Headers.values().length];
 
         int column, row = 0;
@@ -53,6 +57,7 @@ public class LogisticsService {
     }
 
     // Métodos públicos para agregar y eliminar envíos
+    @Override
     public String addShipment(ShipmentType type, ShipmentData shipmentData) {
         String errorMessage = validateShipmentData(shipmentData);
 
@@ -70,6 +75,7 @@ public class LogisticsService {
         return "Error: No se pudo crear el envío.";
     }
 
+    @Override
     public String removeShipmentByIndex(int index) {
         if (index >= 0 && index < shipments.size()) {
             shipments.remove(index);
@@ -78,9 +84,10 @@ public class LogisticsService {
         return "Error: No se pudo eliminar el envío.";
     }
 
-    public String removeShipmentByCode(String code) {
+    @Override
+    public String removeShipmentByCode(String shipmentCode) {
         for (int i = 0; i < shipments.size(); i++) {
-            if (shipments.get(i).getCode().equals(code)) {
+            if (shipments.get(i).getCode().equals(shipmentCode)) {
                 shipments.remove(i);
                 return null;
             }
