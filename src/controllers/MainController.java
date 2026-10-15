@@ -7,8 +7,8 @@ import records.ShipmentData;
 
 public class MainController {
 
-    private IMainView mainView;
-    private ILogisticsService logisticsService;
+    private final IMainView mainView;
+    private final ILogisticsService logisticsService;
 
     public MainController(IMainView mainView, ILogisticsService logisticsService) {
         this.mainView = mainView;
@@ -27,7 +27,7 @@ public class MainController {
     }
 
     public void showShipments() {
-        mainView.showShipments(logisticsService.getHeaders(), logisticsService.getShipmentsTableDate());
+        mainView.showShipments(logisticsService.getHeaders(), logisticsService.getShipmentsTableData());
     }
 
     private void addShipment() {

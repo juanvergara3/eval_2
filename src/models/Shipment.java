@@ -5,7 +5,7 @@ import records.ShipmentData;
 
 public abstract class Shipment {
 
-    private ShipmentData shipmentData;
+    private final ShipmentData shipmentData;
 
     public Shipment(ShipmentData shipmentData) {
         this.shipmentData = shipmentData;
