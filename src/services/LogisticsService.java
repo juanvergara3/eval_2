@@ -8,7 +8,7 @@ import enums.ShipmentType;
 import models.*;
 import records.ShipmentData;
 import factories.ShipmentFactory;
-import interfaces.ILogisticsService;
+import interfaces.logisticsService.ILogisticsService;
 
 public class LogisticsService implements ILogisticsService {
 
@@ -40,7 +40,7 @@ public class LogisticsService implements ILogisticsService {
     }
 
     @Override
-    public String[][] getShipmentsTableDate() {
+    public String[][] getShipmentsTableData() {
         String[][] shipmentData = new String[shipments.size()][Headers.values().length];
 
         int column, row = 0;

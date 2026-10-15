@@ -1,8 +1,8 @@
 package controllers;
 
 import enums.ShipmentType;
-import interfaces.ILogisticsService;
-import interfaces.IMainView;
+import interfaces.logisticsService.ILogisticsService;
+import interfaces.mainView.IMainView;
 import records.ShipmentData;
 
 public class MainController {

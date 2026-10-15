@@ -15,7 +15,7 @@ import javax.swing.JToolBar;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
-import interfaces.IMainView;
+import interfaces.mainView.IMainView;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
