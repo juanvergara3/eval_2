@@ -27,7 +27,7 @@ public class MainView extends JFrame implements IMainView {
     private JButton btnRemoveShipment,btnSaveShipment;
     private JTable tblShipments;
 
-    // campos de la vista que el controlador necesita
+    // campos de la vista con los que el controlador interactúa (de forma indirecta)
     private JTextField txtShipmentCode, txtCustomerName, txtDistance, txtWeight;
     private JComboBox<String> cmbShipmentType;
 
@@ -44,7 +44,7 @@ public class MainView extends JFrame implements IMainView {
         btnAddShipment.setToolTipText("Agregar Envío");
         toolbar.add(btnAddShipment);
 
-        // botón es público para que el controlador pueda agregarle un actionListener
+        // botón es global para que el controlador pueda agregarle un actionListener
         btnRemoveShipment = new JButton();
         btnRemoveShipment.setIcon(new ImageIcon(getClass().getResource("/icons/RemoveShipment.png")));
         btnRemoveShipment.setToolTipText("Eliminar Envío");
@@ -103,7 +103,7 @@ public class MainView extends JFrame implements IMainView {
         txtWeight.setBounds(120, 90, 100, 25);
         pnlAddShipment.add(txtWeight);
 
-        // boton es público para que el controlador pueda agregarle un actionListener
+        // boton es global para que el controlador pueda agregarle un actionListener
         btnSaveShipment = new JButton("Guardar");
         btnSaveShipment.setBounds(240, 90, 100, 25);
         pnlAddShipment.add(btnSaveShipment);
