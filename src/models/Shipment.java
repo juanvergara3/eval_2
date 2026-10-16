@@ -5,42 +5,32 @@ import records.ShipmentData;
 
 public abstract class Shipment {
 
-    private final ShipmentData shipmentData;
+    protected final ShipmentData shipmentData;
+    private final ShipmentType type;
 
-    public Shipment(ShipmentData shipmentData) {
+    public Shipment(ShipmentType type, ShipmentData shipmentData) {
+        this.type = type;
         this.shipmentData = shipmentData;
     }
 
     // métodos comunes a todas las clases hijas
-    public String getCustomer() {
-        return shipmentData.customer();
-    }
 
+    // este es el único getter público necesario, se usa en el servicio para comparar el código de envío que ingresó el usuario con los códigos de los envíos que hay en las lista de envíos; así se determina si el envío existe o no, y se borra el envío si existe.
     public String getCode() {
         return shipmentData.code();
     }
 
-    public double getWeight() {
-        return shipmentData.weight();
-    }
-
-    public double getDistance() {
-        return shipmentData.distance();
-    }
-
     public String[] getData() {
         return new String[]{
-                getType().getLabel(),
-                getCode(),
-                getCustomer(),
-                String.valueOf(getWeight()),
-                String.valueOf(getDistance()),
+                this.type.getLabel(),
+                this.shipmentData.code(),
+                this.shipmentData.customer(),
+                String.valueOf(this.shipmentData.weight()),
+                String.valueOf(this.shipmentData.distance()),
                 String.valueOf(calculateCost())
         };
     }
 
     // métodos abstractos que deben ser implementados por las clases hijas
     public abstract double calculateCost();
-
-    public abstract ShipmentType getType();
 }

@@ -5,18 +5,12 @@ import records.ShipmentData;
 
 public class AirShipment extends Shipment {
 
-    public AirShipment(ShipmentData shipmentData) {
-        super(shipmentData);
+    public AirShipment(ShipmentType type, ShipmentData shipmentData) {
+        super(type, shipmentData);
     }
 
     @Override
     public double calculateCost() {
-        return 5000 + (super.getWeight() * 4000);
-    }
-
-    @Override
-    public ShipmentType getType() {
-        return ShipmentType.AIR;
-    }
-    
+        return super.shipmentData.distance() * (5000 + (super.shipmentData.weight() * 4000));
+    }    
 }

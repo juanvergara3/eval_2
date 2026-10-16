@@ -5,18 +5,12 @@ import records.ShipmentData;
 
 public class SeaShipment extends Shipment {
 
-    public SeaShipment(ShipmentData shipmentData) {
-        super(shipmentData);
+    public SeaShipment(ShipmentType type, ShipmentData shipmentData) {
+        super(type, shipmentData);
     }
 
     @Override
     public double calculateCost() {
-        return 800 + (super.getWeight() * 1000);
+        return super.shipmentData.distance() * (800 + (super.shipmentData.weight() * 1000));
     }
-
-    @Override
-    public ShipmentType getType() {
-        return ShipmentType.SEA;
-    }
-    
 }
